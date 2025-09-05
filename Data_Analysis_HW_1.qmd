@@ -1,0 +1,54 @@
+---
+title: "Data_Analysis_HW_1"
+---
+
+# Ramson Munoz Morales STA 6244 HW 1
+
+## Question 1: 
+
+## ![](images/clipboard-2928873939.png)
+
+### a) What is the subject, sample, population?
+
+i\) Subject: The subject is an exit poll participant for the CNN exit poll.
+
+ii\) Sample: In this scenario, the sample is 1882 voters in California that were surveyed for this exit poll.
+
+iii\) The population is the set of all California voters in the 2018 election.
+
+### b) Identify a relevant statistic and corresponding parameter.
+
+Based on the question, a relevant statistic x, is the percent of voters in the sample who voted for the democratic candidate
+
+$$
+x = 0.525 \times1882\text{ voters} = \frac{ 989\text{ sample voters who voted for Feinstein}}{ 1882\text{ total sample voters}} \approx 52.5\%
+$$
+
+Since this represents the percent of voters who voted for Feinstein in the sample. This proportion estimates the population parameter, $\rho$, which is the 54.2% of all California voters in the 2018 election that voted for Feinstein.
+
+## Question 2:
+
+![](images/clipboard-1962587738.png)
+
+a\) Quantitative
+
+b\) Categorical
+
+c\) Categorical
+
+d\) Quantitative
+
+## Question 3:
+
+![](images/clipboard-18374746.png)
+
+a\) Satisfaction with service in survey (Poor, Okay, Good, Great!)
+
+b\) Duration of Hospital stay for cancer patient
+
+c\) Number of buttons per shirt in a clothing line of dress shirts at Banana Republic
+
+d\) Waiting time at the FIU Pollo Tropical measured in seconds.
+
+```{}
+```
