@@ -1,0 +1,32 @@
+/.quarto/
+.Rproj.user
+
+# Quarto render output
+*_files/
+*_cache/
+*.html
+*.pdf
+*.docx
+*.epub
+*.pptx
+
+# R-specific
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+.Rproj.user/*
+.Rproj.user
+
+# Quarto project settings
+.quarto/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Python/venv if mixing with Jupyter
+.venv/
+__pycache__/
+*.pyc
+
