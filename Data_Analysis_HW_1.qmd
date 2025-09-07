@@ -50,5 +50,70 @@ c\) Number of buttons per shirt in a clothing line of dress shirts at Banana Rep
 
 d\) Waiting time at the FIU Pollo Tropical measured in seconds.
 
+## Question 4:
+
+![](images/clipboard-2046110094.png)
+
+The ordering in this example is ordinal because the categories can be ranked according to increasing (or decreasing) severity of the patient outcome. if we let $< := \text{ severity of patient outcome}$, then there exist an ordering:
+
+$$
+8 < 7< ... < 1 
+$$
+
+## Question 5:
+
+![](images/clipboard-3828955377.png)
+
+a\) Population count, income, age. Key thing to note here is that data sets that are very large or have a large count of discrete units tend to follow continuous distributions.
+
+b\) Time spent waiting for order for a given fast food restaurant Drive-Thru measured in seconds. Although time is continuous, we generally round to the nearest second resulting in a discrete type of data.
+
+## Question 6:
+
+![](images/clipboard-23676260.png)
+
+For the sake of simplification, let us assume we can store the data as a container of containers. i.e. {page1:\[name1,...,name130\],page2:\[name1,...,name130\],...,page400:\[name1,...,name130\]} or the equivalent list of lists \[\[name1,name2,...,name130\],\[name1,name2,...,name130\],...,\[name1,name2,...,name130\]\].
+
+Then, one could randomly select ordered pairs (a,b) from the set of names and pages to pull names.
+
+### Python Implementation
+
+``` {..py .Python}
+import Random as r
+
+def random_sample(student_directory, num_samples):
+  samples = []
+  
+  while len(samples) < num_samples:
+    random_page = r.randint(0,399) #if list
+    # random_page = random.choice(list(student_directory.keys())) # if stored as dict of list
+    random_name = r.randint(0,129) # if list structure
+    samples.append(student_directory[randomPage][randomName])
+  
+  return samples
+  
+```
+
+Note: this solution has problems with uniqueness. We can handle the case of duplicate students, but some more careful consideration as to a time efficient data structure organization is important here since this implementation can balloon to O(k\^2) in the worst case (with k := the number of samples taken).
+
+### Database example
+
+If working with a relational database, one could randomly pull primary key of pages and then select randomly the primary key tied to each student to return name. An sql query could be used to pull data in a structured format to link with the python example above, but an sql query can be written to perform the same operation.
+
+### R example using .csv
+
+```{r}
+randomPage= sample(1:400,10,replace=TRUE)
+randomName= sample(1:130,10,replace = TRUE) #small chance we get same name drawn twice, but we can just rerun program if that happens
+nameSample = data.frame(randomPage,randomName)
+print(nameSample)
+```
+
+The important point here is that the solution will depend on how the data is organized and the constraints placed on how data is accessed
+
 ```{}
 ```
+
+## Question 7:
+
+![](images/clipboard-1522859538.png)
