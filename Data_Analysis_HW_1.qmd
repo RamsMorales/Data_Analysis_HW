@@ -4,7 +4,7 @@ title: "Data_Analysis_HW_1"
 
 # Ramson Munoz Morales STA 6244 HW 1
 
-## Question 1: 
+## Question 1:
 
 ## ![](images/clipboard-2928873939.png)
 
@@ -78,7 +78,7 @@ Then, one could randomly select ordered pairs (a,b) from the set of names and pa
 
 ### Python Implementation
 
-``` {..py .Python}
+```         
 import Random as r
 
 def random_sample(student_directory, num_samples):
@@ -94,7 +94,7 @@ def random_sample(student_directory, num_samples):
   
 ```
 
-Note: this solution has problems with uniqueness. We can handle the case of duplicate students, but some more careful consideration as to a time efficient data structure organization is important here since this implementation can balloon to O(k\^2) in the worst case (with k := the number of samples taken).
+Note: this solution has problems with uniqueness. We can handle the case of duplicate students, but some more careful consideration as to a time efficient data structure organization is important here since this implementation can balloon to O(k\^2) in the worst case (with k := the number of samples taken).1
 
 ### Database example
 
@@ -111,9 +111,208 @@ print(nameSample)
 
 The important point here is that the solution will depend on how the data is organized and the constraints placed on how data is accessed
 
-```{}
-```
-
 ## Question 7:
 
 ![](images/clipboard-1522859538.png)
+
+```{r}
+Carbon = read.table("http://stat4ds.rwth-aachen.de/data/Carbon.dat",
+header=TRUE)
+
+# Constructing Frequency Distribution
+table(Carbon$CO2)
+```
+
+In the table above, we can see the distribution of carbon counts for the countries in this sample. The most frequent outputs are 4.3,5.3, and 6.2 units of $CO_2$. From the table, the min is 2 units of $CO_2$ and the max is 9.9 units of $CO_2$
+
+```{r}
+# Creating a Histogram of the data
+hist(Carbon$CO2,main="CO_2 distribution",col=c(1:8),xlab= "CO_2 levels",freq=FALSE)
+
+```
+
+Using the histogram we can see similar information as provided in the table. The most frequent outputs are likely between 4 and 6 units of $CO_2$. We also see similar Max, Min, and Range. Here, however, we are able to see that the distribution is slightly bi-modal. Although the data is distributed around 5 units of $CO_2$, there is a second smaller peak around 9 units. Utilizing mean, median, and standard deviation, we may see indicators of this behavior.
+
+```{r}
+sprintf("Mean: %0.4f    Median: %0.4f    Standard Deviation: %0.4f",mean(Carbon$CO2), median(Carbon$CO2),sd(Carbon$CO2))
+
+```
+
+The mean is greater than the median confirming that the data is slightly right tailed. The standard deviation is almost 2 suggesting that most of the data will be found within 2.5 and 7.5 units of $CO_2$. The main conclusion here is that using this numerical report and frequency distribution alone does not provide a full picture of the distribution. By plotting the histogram, we are able to appreciate the slight bi-modal behavior present in this data set.
+
+## Question 8:
+
+![](images/clipboard-1296274773.png)
+
+I would expect that the distribution of annual income for the Canadian population in 2019 to be skewed right because the median is lower than the mean for the data set meaning that there are a small percentage of individuals on the high end of the population that are pulling up the mean value while a majority are on the lower end given that 50% of the population has an income of \$35,000 or lower.
+
+## Question 9:
+
+![](images/clipboard-2046355900.png)
+
+```{r}
+# Loading Data
+murder_data = read.table("http://stat4ds.rwth-aachen.de/data/Murder.dat",
+header=TRUE)
+```
+
+a\)
+
+```{r}
+sprintf("Mean: %0.4f    Standard Deviation: %0.4f",mean(murder_data$murder), sd(murder_data$murder))
+```
+
+The mean indicates that one can expect 5 to 6 murders per 100,000 for any given state in the data set measured for this time period. The standard deviation indicates the number varies largely depending on the state since the one standard deviation is \~80% of the center.
+
+b\)
+
+```{r}
+sprintf("Min: %0.4f Q1: %0.4f Median: %0.4f Q3: %0.4f Max: %0.4f",fivenum(murder_data$murder)[1],fivenum(murder_data$murder)[2],fivenum(murder_data$murder)[3],fivenum(murder_data$murder)[4],fivenum(murder_data$murder)[5])
+```
+
+```{r}
+boxplot(murder_data$murder,main = "Distribution of Murder Rate per 100,000 people for US 2017")
+```
+
+From the box plot we can see that the data is slightly right tailed. However, we see that there are some potential outliers for this data. 75% of the data is distributed at 6.45 murders per 100,000 people suggesting that the D.C data point might be an outlier.
+
+c\) The mean and range are more sensitive to outliers compared to the median and interquartile range. The former actually depend on the values while the latter are more dependent on underlying structure in the data.
+
+## Question 10:
+
+![](images/clipboard-1330285237.png)
+
+```{r}
+house_data = read.table("http://stat4ds.rwth-aachen.de/data/Houses.dat",
+header=TRUE)
+boxplot(house_data$price)
+```
+
+c\) Excluding the outliers, the data is relatively symmetrically distributed with the following summary:
+
+Min: 31.500 Q1:138.825 Median:198.900 Q3:257.625 max: 880.500.
+
+Although, prices greater than \$450,000 were likely outliers in terms of selling price.
+
+d\)
+
+```{r}
+boxplot(house_data$price ~ house_data$new,main = "Sell price for New and Old Homes",ylab="House Price",xlab="New or old House",col =c(3,4),names= c("Old","New") )
+
+```
+
+From the box plots we can see that older houses are lower in sell price compared to the newer homes for this data set. Further, we can see that older homes are more symmetrically distributed, while the newer homes are left-tailed. The median price for the older home is around \$200,000 while the newer home is \$400,000. Some of the older homes compare in price with the newer homes on the high end of the sell price, but they are likely outliers for this data.
+
+## Question 11:
+
+![](images/clipboard-2620767959.png)
+
+a\) standard deviation is preferred over the range because it provides a higher resolution view of how the data is distributed about the center. Range alone says that all of the data is distributed across the range, r. But, we don't know if most of the data is on the lower end of the range, higher, middle, etc. With standard deviation and Chebychev's rule, we can expect that a majority of the data will be near the center and then taper off which results in a sense of shape for the data (i.e. more details about the data). Furthermore, it is less susceptible to outliers in the low and higher values.
+
+b\) IQR is preferred over the range for the same reason that standard deviation is preferred over the range—it provides more detail about how the data is distributed. Furthermore, it is less susceptible to outliers in the low and higher values. Here, the difference is that we have specific checkpoints (25%,50%,75%) for which the information is provided.
+
+## Question 12:
+
+![](images/clipboard-3230810747.png)
+
+If the largest value in the sample is moved up to become an extreme outlier, mean moves up because definition is
+
+$$
+\bar{x} = \frac{\sum_1^n x_i}{n-1}
+$$ The numerator increases since we sum a higher value without changing the denominator; therefore, the mean increases. The median does not change because it always measures the middle of the values in the data set. By definition, the largest value cannot be the middle value, thus, changes in the largest value do not affect the median. The range increases by definition
+
+$$
+range = largest - smallest
+$$
+
+An increase in the largest value without proportional change in the smallest value increases the range. However, the interquartile range does not change as a result of the stated transformation.
+
+$$
+IQR = Q3 - Q1
+$$
+
+Since the largest value is not in Q3,Q2,Q1, it does not affect the interquartile range.
+
+Conclusion: median and IQR are less sensitive to extreme outliers.
+
+## Question 13:
+
+![](images/clipboard-1931530109.png)
+
+### Center translates
+
+$$
+\bar{y} = \frac{\sum y_i}{n-1} \;\Leftrightarrow\; \frac{\sum y_i}{n}, 
+\quad \text{let } x_i = y_i + c.
+$$
+
+Then, $$
+\bar{x} = \frac{\sum x_i}{n} 
+= \frac{\sum (y_i + c)}{n} 
+= \frac{1}{n}\Big(\sum y_i + \sum c\Big) 
+= \bar{y} + \frac{nc}{n} 
+= \bar{y} + c.
+$$
+
+### Standard deviation is invariant under translation
+
+$$
+\operatorname{var}(y) = \frac{1}{n} \sum_{i=1}^n (y_i - \bar{y})^2.
+$$
+
+Let $$
+x_i = y_i + c.
+$$ Then, by previous proof, $$
+\bar{x} = \bar{y} + c.
+$$
+
+Now compute $$
+\operatorname{var}(x) 
+= \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
+= \frac{1}{n} \sum_{i=1}^n \big( (y_i + c) - (\bar{y} + c) \big)^2.
+$$
+
+Simplifying, $$
+\operatorname{var}(x) 
+= \frac{1}{n} \sum_{i=1}^n (y_i - \bar{y})^2
+= \operatorname{var}(y).
+$$
+
+Finally,
+
+$$
+\operatorname{var}(x) = \operatorname{var}(y) \Rightarrow  \sqrt{\operatorname{var}(x)} = \sqrt{\operatorname{var}(y)}
+$$
+
+### Scalar Multiple property
+
+In short, let $$
+x_i = cy_i
+$$
+
+Then,
+
+$$
+\bar{x} = \frac{\sum x_i}{n} 
+= \frac{\sum cy_i}{n} 
+= \frac{c}{n}(\sum y_i)  
+= c\bar{y}.
+$$
+
+And
+
+$$
+\operatorname{var}(x) 
+= \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
+= \frac{1}{n} \sum_{i=1}^n \big( cy_i - c\bar{y}\big)^2
+= \frac{1}{n} \sum_{i=1}^n \big(c(y_i - \bar{y})\big)^2
+= \frac{1}{n} \sum_{i=1}^n c^2\big(y_i - \bar{y}\big)^2
+= \frac{c^2}{n} \sum_{i=1}^n \big(y_i - \bar{y}\big)^2
+= c^2\operatorname{var}(y)
+$$
+
+Finally,
+
+$$
+\sqrt{c^2\operatorname{var}(y)} = |c|\sqrt{\operatorname{var}(y)}
+$$\
